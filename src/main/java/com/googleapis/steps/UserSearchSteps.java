@@ -29,7 +29,8 @@ public class UserSearchSteps {
 	@Step
 	public void searchByCode(String CODE_SEARCH) {
 		response = request.when().get(CODE_SEARCH);
-		System.out.println("response: " + response.prettyPrint());
+		// System.out.println("response: " + response.prettyPrint());
+		// response = SerenityRest.when().get(ISO_CODE_SEARCH + code);
 
 	}
 
