@@ -1,4 +1,4 @@
-package com.googleapis.steps;
+package com.apis.steps;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsInAnyOrder;
@@ -21,23 +21,43 @@ public class UserSearchSteps {
 	public ValidatableResponse json;
 
 	@Step
+	public void constructOAuthRequest(String consumerKey, String consumerSecret, String accessToken, String tokenSecret,
+			String queryParam, String tweetMessage) {
+		request = given().auth().oauth(consumerKey, consumerSecret, accessToken, tokenSecret).queryParam(queryParam,
+				tweetMessage);
+		postRequest("/update.json");
+
+	}
+
+	@Step
 	public void constructRequestQueryParam(String queryParam, String code) {
-		request = given().param("q", "" + queryParam + ":" + code);
+		request = given().param("q", "" + queryParam + ":" + code).log().all();
 
 	}
 
 	@Step
 	public void constructRequestPathParam(String pathParam, String code) {
-		request = given().pathParam("pathParam", code);
+		request = given().pathParam("pathParam", code).log().all();
 
 	}
 
+	@Step
+	public void constructRequestAddAuthHeader(String token) {
+		request = given().header("Authorization", "Bearer " + token);
+
+	}
+
+	@Step
+	public void postRequest(String post) {
+		response = request.when().post(post);
+		response.then().log().all();
+
+	}
 
 	@Step
 	public void searchByCode(String CODE_SEARCH) {
 		response = request.when().get(CODE_SEARCH);
-		// System.out.println("response: " + response.prettyPrint());
-		// response = SerenityRest.when().get(ISO_CODE_SEARCH + code);
+		response.then().log().all();
 
 	}
 
@@ -73,4 +93,5 @@ public class UserSearchSteps {
 			}
 		}
 	}
+
 }

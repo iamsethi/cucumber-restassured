@@ -1,6 +1,6 @@
-package com.googleapis.stepdefinitions;
+package com.apis.stepdefinitions;
 
-import com.googleapis.steps.UserSearchSteps;
+import com.apis.steps.UserSearchSteps;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

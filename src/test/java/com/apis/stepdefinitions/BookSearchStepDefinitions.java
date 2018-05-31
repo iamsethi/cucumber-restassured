@@ -1,8 +1,8 @@
-package com.googleapis.stepdefinitions;
+package com.apis.stepdefinitions;
 
 import java.util.Map;
 
-import com.googleapis.steps.UserSearchSteps;
+import com.apis.steps.UserSearchSteps;
 
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
