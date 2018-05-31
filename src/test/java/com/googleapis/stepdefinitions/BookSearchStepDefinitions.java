@@ -1,11 +1,6 @@
 package com.googleapis.stepdefinitions;
 
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.equalTo;
-
 import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
 
 import com.googleapis.steps.UserSearchSteps;
 
@@ -33,23 +28,11 @@ public class BookSearchStepDefinitions {
 
 	@And("response includes the following$")
 	public void response_equals(Map<String, String> responseFields) {
-		for (Map.Entry<String, String> field : responseFields.entrySet()) {
-			if (StringUtils.isNumeric(field.getValue())) {
-				userSearchSteps.json.body(field.getKey(), equalTo(Integer.parseInt(field.getValue())));
-			} else {
-				userSearchSteps.json.body(field.getKey(), equalTo(field.getValue()));
-			}
-		}
+		userSearchSteps.iShouldFindFollowingResponse(responseFields);
 	}
 
 	@And("response includes the following in any order")
 	public void response_contains_in_any_order(Map<String, String> responseFields) {
-		for (Map.Entry<String, String> field : responseFields.entrySet()) {
-			if (StringUtils.isNumeric(field.getValue())) {
-				userSearchSteps.json.body(field.getKey(), containsInAnyOrder(Integer.parseInt(field.getValue())));
-			} else {
-				userSearchSteps.json.body(field.getKey(), containsInAnyOrder(field.getValue()));
-			}
-		}
+		userSearchSteps.iShouldFindFollowingResponseInAnyOrder(responseFields);
 	}
 }
