@@ -32,6 +32,7 @@ public class UserSearchSteps {
 
 	}
 
+
 	@Step
 	public void searchByCode(String CODE_SEARCH) {
 		response = request.when().get(CODE_SEARCH);
