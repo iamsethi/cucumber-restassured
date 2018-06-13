@@ -18,7 +18,7 @@ public class BookSearchStepDefinitions {
 
 	@Given("a book exists with an isbn of (.*)")
 	public void a_book_exists_with_isbn(String isbn) {
-		userSearchSteps.constructRequestQueryParam("isbn", isbn);
+		userSearchSteps.constructRequestQueryParam("q", "isbn" + ":" + isbn);
 	}
 
 	@When("a user retrieves the book by isbn")

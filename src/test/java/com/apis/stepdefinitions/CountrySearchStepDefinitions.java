@@ -8,14 +8,14 @@ import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Steps;
 
 public class CountrySearchStepDefinitions {
-	private String ISO_REQ_URL = "http://services.groupkt.com/country/get/iso2code/{pathParam}";
+	private String ISO_REQ_URL = "http://services.groupkt.com/country/get/iso2code/{isoCode}";
 
 	@Steps
 	UserSearchSteps userSearchSteps;
 
 	@Given("^a country exists with \"([^\"]*)\"$")
 	public void a_country_exists_with(String iso) {
-		userSearchSteps.constructRequestPathParam("iso", iso);
+		userSearchSteps.constructRequestPathParam("isoCode", iso);
 	}
 
 	@When("^a user retrieves the country by iso$")

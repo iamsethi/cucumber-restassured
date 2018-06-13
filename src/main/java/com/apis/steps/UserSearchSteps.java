@@ -23,21 +23,21 @@ public class UserSearchSteps {
 	@Step
 	public void constructOAuthRequest(String consumerKey, String consumerSecret, String accessToken, String tokenSecret,
 			String queryParam, String tweetMessage) {
-		request = given().auth().oauth(consumerKey, consumerSecret, accessToken, tokenSecret).queryParam(queryParam,
-				tweetMessage);
+		constructRequestQueryParam(queryParam, tweetMessage);
+		request.given().auth().oauth(consumerKey, consumerSecret, accessToken, tokenSecret);
 		postRequest("/update.json");
 
 	}
 
 	@Step
 	public void constructRequestQueryParam(String queryParam, String code) {
-		request = given().param("q", "" + queryParam + ":" + code).log().all();
+		request = given().queryParam(queryParam, code).log().all();
 
 	}
 
 	@Step
 	public void constructRequestPathParam(String pathParam, String code) {
-		request = given().pathParam("pathParam", code).log().all();
+		request = given().pathParam(pathParam, code).log().all();
 
 	}
 
