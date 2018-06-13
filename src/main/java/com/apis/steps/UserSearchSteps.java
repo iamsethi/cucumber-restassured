@@ -49,7 +49,6 @@ public class UserSearchSteps {
 	@Step
 	public void postRequest(String post) {
 		response = request.when().post(post).then().contentType(ContentType.JSON).extract().response();
-		System.out.println("############" + response.jsonPath().get("id_str"));
 		response.then().log().all();
 
 	}
