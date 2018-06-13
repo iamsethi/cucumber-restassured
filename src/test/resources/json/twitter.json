@@ -1,0 +1,544 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"type": "object",
+	"properties": 
+	{
+		"created_at": 
+		{
+			"type": "string"
+		},
+
+		"id": 
+		{
+			"type": "integer"
+		},
+
+		"id_str": 
+		{
+			"type": "string"
+		},
+
+		"text": 
+		{
+			"type": "string"
+		},
+
+		"truncated": 
+		{
+			"type": "boolean"
+		},
+
+		"entities": 
+		{
+			"type": "object",
+			"properties": 
+			{
+				"hashtags": 
+				{
+					"type": "array",
+					"items": 
+					{
+						
+					}
+				},
+
+				"symbols": 
+				{
+					"type": "array",
+					"items": 
+					{
+						
+					}
+				},
+
+				"user_mentions": 
+				{
+					"type": "array",
+					"items": 
+					{
+						
+					}
+				},
+
+				"urls": 
+				{
+					"type": "array",
+					"items": 
+					{
+						
+					}
+				}
+			},
+
+			"required": 
+			[
+				"hashtags",
+				"symbols",
+				"user_mentions",
+				"urls"
+			]
+		},
+
+		"source": 
+		{
+			"type": "string"
+		},
+
+		"in_reply_to_status_id": 
+		{
+			"type": "null"
+		},
+
+		"in_reply_to_status_id_str": 
+		{
+			"type": "null"
+		},
+
+		"in_reply_to_user_id": 
+		{
+			"type": "null"
+		},
+
+		"in_reply_to_user_id_str": 
+		{
+			"type": "null"
+		},
+
+		"in_reply_to_screen_name": 
+		{
+			"type": "null"
+		},
+
+		"user": 
+		{
+			"type": "object",
+			"properties": 
+			{
+				"id": 
+				{
+					"type": "integer"
+				},
+
+				"id_str": 
+				{
+					"type": "string"
+				},
+
+				"name": 
+				{
+					"type": "string"
+				},
+
+				"screen_name": 
+				{
+					"type": "string"
+				},
+
+				"location": 
+				{
+					"type": "string"
+				},
+
+				"description": 
+				{
+					"type": "string"
+				},
+
+				"url": 
+				{
+					"type": "string"
+				},
+
+				"entities": 
+				{
+					"type": "object",
+					"properties": 
+					{
+						"url": 
+						{
+							"type": "object",
+							"properties": 
+							{
+								"urls": 
+								{
+									"type": "array",
+									"items": 
+									[
+										{
+											"type": "object",
+											"properties": 
+											{
+												"url": 
+												{
+													"type": "string"
+												},
+
+												"expanded_url": 
+												{
+													"type": "string"
+												},
+
+												"display_url": 
+												{
+													"type": "string"
+												},
+
+												"indices": 
+												{
+													"type": "array",
+													"items": 
+													[
+														{
+															"type": "integer"
+														},
+
+														{
+															"type": "integer"
+														}
+													]
+												}
+											},
+
+											"required": 
+											[
+												"url",
+												"expanded_url",
+												"display_url",
+												"indices"
+											]
+										}
+									]
+								}
+							},
+
+							"required": 
+							[
+								"urls"
+							]
+						},
+
+						"description": 
+						{
+							"type": "object",
+							"properties": 
+							{
+								"urls": 
+								{
+									"type": "array",
+									"items": 
+									{
+										
+									}
+								}
+							},
+
+							"required": 
+							[
+								"urls"
+							]
+						}
+					},
+
+					"required": 
+					[
+						"url",
+						"description"
+					]
+				},
+
+				"protected": 
+				{
+					"type": "boolean"
+				},
+
+				"followers_count": 
+				{
+					"type": "integer"
+				},
+
+				"friends_count": 
+				{
+					"type": "integer"
+				},
+
+				"listed_count": 
+				{
+					"type": "integer"
+				},
+
+				"created_at": 
+				{
+					"type": "string"
+				},
+
+				"favourites_count": 
+				{
+					"type": "integer"
+				},
+
+				"utc_offset": 
+				{
+					"type": "null"
+				},
+
+				"time_zone": 
+				{
+					"type": "null"
+				},
+
+				"geo_enabled": 
+				{
+					"type": "boolean"
+				},
+
+				"verified": 
+				{
+					"type": "boolean"
+				},
+
+				"statuses_count": 
+				{
+					"type": "integer"
+				},
+
+				"lang": 
+				{
+					"type": "string"
+				},
+
+				"contributors_enabled": 
+				{
+					"type": "boolean"
+				},
+
+				"is_translator": 
+				{
+					"type": "boolean"
+				},
+
+				"is_translation_enabled": 
+				{
+					"type": "boolean"
+				},
+
+				"profile_background_color": 
+				{
+					"type": "string"
+				},
+
+				"profile_background_image_url": 
+				{
+					"type": "string"
+				},
+
+				"profile_background_image_url_https": 
+				{
+					"type": "string"
+				},
+
+				"profile_background_tile": 
+				{
+					"type": "boolean"
+				},
+
+				"profile_image_url": 
+				{
+					"type": "string"
+				},
+
+				"profile_image_url_https": 
+				{
+					"type": "string"
+				},
+
+				"profile_banner_url": 
+				{
+					"type": "string"
+				},
+
+				"profile_link_color": 
+				{
+					"type": "string"
+				},
+
+				"profile_sidebar_border_color": 
+				{
+					"type": "string"
+				},
+
+				"profile_sidebar_fill_color": 
+				{
+					"type": "string"
+				},
+
+				"profile_text_color": 
+				{
+					"type": "string"
+				},
+
+				"profile_use_background_image": 
+				{
+					"type": "boolean"
+				},
+
+				"has_extended_profile": 
+				{
+					"type": "boolean"
+				},
+
+				"default_profile": 
+				{
+					"type": "boolean"
+				},
+
+				"default_profile_image": 
+				{
+					"type": "boolean"
+				},
+
+				"following": 
+				{
+					"type": "boolean"
+				},
+
+				"follow_request_sent": 
+				{
+					"type": "boolean"
+				},
+
+				"notifications": 
+				{
+					"type": "boolean"
+				},
+
+				"translator_type": 
+				{
+					"type": "string"
+				}
+			},
+
+			"required": 
+			[
+				"id",
+				"id_str",
+				"name",
+				"screen_name",
+				"location",
+				"description",
+				"url",
+				"entities",
+				"protected",
+				"followers_count",
+				"friends_count",
+				"listed_count",
+				"created_at",
+				"favourites_count",
+				"utc_offset",
+				"time_zone",
+				"geo_enabled",
+				"verified",
+				"statuses_count",
+				"lang",
+				"contributors_enabled",
+				"is_translator",
+				"is_translation_enabled",
+				"profile_background_color",
+				"profile_background_image_url",
+				"profile_background_image_url_https",
+				"profile_background_tile",
+				"profile_image_url",
+				"profile_image_url_https",
+				"profile_banner_url",
+				"profile_link_color",
+				"profile_sidebar_border_color",
+				"profile_sidebar_fill_color",
+				"profile_text_color",
+				"profile_use_background_image",
+				"has_extended_profile",
+				"default_profile",
+				"default_profile_image",
+				"following",
+				"follow_request_sent",
+				"notifications",
+				"translator_type"
+			]
+		},
+
+		"geo": 
+		{
+			"type": "null"
+		},
+
+		"coordinates": 
+		{
+			"type": "null"
+		},
+
+		"place": 
+		{
+			"type": "null"
+		},
+
+		"contributors": 
+		{
+			"type": "null"
+		},
+
+		"is_quote_status": 
+		{
+			"type": "boolean"
+		},
+
+		"retweet_count": 
+		{
+			"type": "integer"
+		},
+
+		"favorite_count": 
+		{
+			"type": "integer"
+		},
+
+		"favorited": 
+		{
+			"type": "boolean"
+		},
+
+		"retweeted": 
+		{
+			"type": "boolean"
+		},
+
+		"lang": 
+		{
+			"type": "string"
+		}
+	},
+
+	"required": 
+	[
+		"created_at",
+		"id",
+		"id_str",
+		"text",
+		"truncated",
+		"entities",
+		"source",
+		"in_reply_to_status_id",
+		"in_reply_to_status_id_str",
+		"in_reply_to_user_id",
+		"in_reply_to_user_id_str",
+		"in_reply_to_screen_name",
+		"user",
+		"geo",
+		"coordinates",
+		"place",
+		"contributors",
+		"is_quote_status",
+		"retweet_count",
+		"favorite_count",
+		"favorited",
+		"retweeted",
+		"lang"
+	]
+}

@@ -7,6 +7,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class TwitterStepDefinitions {
 
@@ -33,6 +34,7 @@ public class TwitterStepDefinitions {
 		userSearchSteps.constructRequestQueryParam("status", tweetMessage.raw().get(0).toString());
 		userSearchSteps.constructOAuthRequest(consumerKey, consumerSecret, accessToken, tokenSecret);
 		userSearchSteps.postRequest("/update.json");
+		userSearchSteps.response.then().body(matchesJsonSchemaInClasspath("json/twitter.json"));
 		Serenity.setSessionVariable("tweetId").to(userSearchSteps.response.jsonPath().get("id_str"));
 	}
 

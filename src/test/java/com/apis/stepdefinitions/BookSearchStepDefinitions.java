@@ -1,5 +1,7 @@
 package com.apis.stepdefinitions;
 
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+
 import java.util.Map;
 
 import com.apis.steps.UserSearchSteps;
@@ -24,6 +26,7 @@ public class BookSearchStepDefinitions {
 	@When("a user retrieves the book by isbn")
 	public void a_user_retrieves_the_book_by_isbn() {
 		userSearchSteps.searchByCode(ISBN_REQ_URL);
+		//userSearchSteps.response.then().body(matchesJsonSchemaInClasspath("json/isbn.json"));
 	}
 
 	@And("response includes the following$")
