@@ -1,7 +1,6 @@
-
 Feature: Post a tweet to Twitter
 
-@PostTweet
+  @PostTweet
   Scenario: User calls web service to post a tweet to Twitter
     Given a user exists with OATH 1.0 with below details
       | consumerKey    | binkFuGAb6wb96jKzNqhXsSK6                          |
@@ -11,4 +10,5 @@ Feature: Post a tweet to Twitter
     When a user post the tweet
       | This is my tweet from Rest Assured |
     Then the status code is 200
-   
+    When a user delete the tweet
+    Then the status code is 200

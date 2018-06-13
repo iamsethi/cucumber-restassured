@@ -5,6 +5,7 @@ import com.apis.steps.UserSearchSteps;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
+import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
 public class TwitterStepDefinitions {
@@ -32,6 +33,13 @@ public class TwitterStepDefinitions {
 		userSearchSteps.constructRequestQueryParam("status", tweetMessage.raw().get(0).toString());
 		userSearchSteps.constructOAuthRequest(consumerKey, consumerSecret, accessToken, tokenSecret);
 		userSearchSteps.postRequest("/update.json");
+		Serenity.setSessionVariable("tweetId").to(userSearchSteps.response.jsonPath().get("id_str"));
+	}
+
+	@When("^a user delete the tweet$")
+	public void a_user_delete_the_tweet() {
+		userSearchSteps.constructOAuthRequest(consumerKey, consumerSecret, accessToken, tokenSecret);
+		userSearchSteps.postRequest("/destroy/" + Serenity.sessionVariableCalled("tweetId") + ".json");
 
 	}
 

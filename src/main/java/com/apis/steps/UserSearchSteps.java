@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
@@ -17,14 +18,13 @@ import net.thucydides.core.annotations.Step;
 public class UserSearchSteps {
 
 	private RequestSpecification request;
-	private Response response;
+	public Response response;
 	public ValidatableResponse json;
 
 	@Step
 	public void constructOAuthRequest(String consumerKey, String consumerSecret, String accessToken,
 			String tokenSecret) {
 		request.given().auth().oauth(consumerKey, consumerSecret, accessToken, tokenSecret);
-		
 
 	}
 
@@ -48,7 +48,8 @@ public class UserSearchSteps {
 
 	@Step
 	public void postRequest(String post) {
-		response = request.when().post(post);
+		response = request.when().post(post).then().contentType(ContentType.JSON).extract().response();
+		System.out.println("############" + response.jsonPath().get("id_str"));
 		response.then().log().all();
 
 	}
