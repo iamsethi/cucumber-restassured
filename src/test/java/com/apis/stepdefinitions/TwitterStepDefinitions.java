@@ -29,8 +29,9 @@ public class TwitterStepDefinitions {
 
 	@When("^a user post the tweet$")
 	public void a_user_post_the_tweet(DataTable tweetMessage) {
-		userSearchSteps.constructOAuthRequest(consumerKey, consumerSecret, accessToken, tokenSecret, "status",
-				tweetMessage.raw().get(0).toString());
+		userSearchSteps.constructRequestQueryParam("status", tweetMessage.raw().get(0).toString());
+		userSearchSteps.constructOAuthRequest(consumerKey, consumerSecret, accessToken, tokenSecret);
+		userSearchSteps.postRequest("/update.json");
 
 	}
 

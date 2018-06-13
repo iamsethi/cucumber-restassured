@@ -21,11 +21,10 @@ public class UserSearchSteps {
 	public ValidatableResponse json;
 
 	@Step
-	public void constructOAuthRequest(String consumerKey, String consumerSecret, String accessToken, String tokenSecret,
-			String queryParam, String tweetMessage) {
-		constructRequestQueryParam(queryParam, tweetMessage);
+	public void constructOAuthRequest(String consumerKey, String consumerSecret, String accessToken,
+			String tokenSecret) {
 		request.given().auth().oauth(consumerKey, consumerSecret, accessToken, tokenSecret);
-		postRequest("/update.json");
+		
 
 	}
 
