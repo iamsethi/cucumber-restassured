@@ -26,13 +26,13 @@ public class TwitterStepDefinitions {
 		this.consumerSecret = accessFields.raw().get(1).get(1);
 		this.accessToken = accessFields.raw().get(2).get(1);
 		this.tokenSecret = accessFields.raw().get(3).get(1);
-
+		userSearchSteps.constructOAuth1Request(consumerKey, consumerSecret, accessToken, tokenSecret);
 	}
 
 	@When("^a user post the tweet$")
 	public void a_user_post_the_tweet(DataTable tweetMessage) {
 		userSearchSteps.constructRequestQueryParam("status", tweetMessage.raw().get(0).toString());
-		userSearchSteps.constructOAuth1Request(consumerKey, consumerSecret, accessToken, tokenSecret);
+
 		userSearchSteps.postRequest("/update.json");
 		userSearchSteps.response.then().body(matchesJsonSchemaInClasspath("json/twitter.json"));
 		Serenity.setSessionVariable("tweetId").to(userSearchSteps.response.jsonPath().get("id_str"));

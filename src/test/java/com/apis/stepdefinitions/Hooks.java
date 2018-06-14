@@ -1,10 +1,17 @@
 package com.apis.stepdefinitions;
 
+import com.apis.steps.UserSearchSteps;
+
+import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import io.restassured.RestAssured;
+import net.thucydides.core.annotations.Steps;
 
 public class Hooks {
-	
+
+	@Steps
+	UserSearchSteps userSearchSteps;
+
 	@Before("@Upload")
 	public static void upload() {
 		RestAssured.baseURI = "http://petstore.swagger.io";
@@ -29,6 +36,12 @@ public class Hooks {
 		RestAssured.basePath = "/1.1/statuses";
 	}
 
+	@Before("@OAuth1")
+	public static void OAuth1() {
+		RestAssured.baseURI = "https://api.twitter.com";
+		RestAssured.basePath = "/1.1/statuses/home_timeline.json";
+	}
+
 	@Before("@OAuth2")
 	public static void OAuth2() {
 		RestAssured.baseURI = "https://api.imgur.com";
@@ -39,6 +52,12 @@ public class Hooks {
 	public static void BasicAuth() {
 		RestAssured.baseURI = "https://postman-echo.com";
 		RestAssured.basePath = "/basic-auth";
+	}
+
+	@After
+	public void after() {
+		RestAssured.reset();
+		userSearchSteps.request = null;
 	}
 
 }

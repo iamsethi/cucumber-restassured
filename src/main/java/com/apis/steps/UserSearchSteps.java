@@ -18,14 +18,14 @@ import net.thucydides.core.annotations.Step;
 
 public class UserSearchSteps {
 
-	private RequestSpecification request;
+	public RequestSpecification request;
 	public Response response;
 	public ValidatableResponse json;
 
 	@Step
 	public void constructOAuth1Request(String consumerKey, String consumerSecret, String accessToken,
 			String tokenSecret) {
-		request.given().auth().oauth(consumerKey, consumerSecret, accessToken, tokenSecret);
+		request = given().auth().oauth(consumerKey, consumerSecret, accessToken, tokenSecret).log().all();
 
 	}
 
@@ -42,26 +42,31 @@ public class UserSearchSteps {
 	}
 
 	@Step
-	public void constructRequestQueryParam(String queryParam, String code) {
-		request = given().queryParam(queryParam, code).log().all();
-
-	}
-
-	@Step
-	public void constructRequestPathParam(String pathParam, String code) {
-		request = given().pathParam(pathParam, code).log().all();
-
-	}
-
-	@Step
 	public void constructRequestAddAuthHeader(String token) {
 		request = given().header("Authorization", "Bearer " + token);
-
 	}
 
 	@Step
 	public void constructMultiPartFile(String fileLoc) {
 		request = given().header("Content-Type", "multipart/form-data").and().multiPart(new File(fileLoc));
+	}
+
+	@Step
+	public void constructRequestQueryParam(String queryParam, String code) {
+		try {
+			request.given().queryParam(queryParam, code).log().all();
+		} catch (NullPointerException e) {
+			request = given().queryParam(queryParam, code).log().all();
+		}
+	}
+
+	@Step
+	public void constructRequestPathParam(String pathParam, String code) {
+		try {
+			request.given().pathParam(pathParam, code).log().all();
+		} catch (NullPointerException e) {
+			request = given().pathParam(pathParam, code).log().all();
+		}
 
 	}
 
@@ -78,8 +83,6 @@ public class UserSearchSteps {
 		response.then().log().all();
 
 	}
-
-
 
 	@Step
 	public void searchIsExecutedSuccesfully(int statusCode) {

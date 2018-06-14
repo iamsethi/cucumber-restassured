@@ -9,7 +9,7 @@ Feature: Authentication testing
     Then the status code is 200
 
   @OAuth1
-  Scenario: User calls web service to post a tweet to Twitter
+  Scenario: User calls web service with OAuth1 authentication
     Given a user exists with OATH 1.0 with below details
       | consumerKey    | binkFuGAb6wb96jKzNqhXsSK6                          |
       | consumerSecret | kgACwCIN5n1mmAOkviLgFwgx3vexh3HbTU9MjFP274hx3ZMR8S |
@@ -19,7 +19,7 @@ Feature: Authentication testing
     Then the status code is 200
 
   @OAuth2
-  Scenario: User calls web service with OAuth authentication
+  Scenario: User calls web service with OAuth2 authentication
     Given a user exists with OAuth2 with below details
       | clientId       | 44edd52a542ea9a                            |
       | clientSecret   | efe271a5e53fe32c013fbc8582842a97b1e79e42   |
