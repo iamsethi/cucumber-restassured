@@ -85,6 +85,13 @@ public class UserSearchSteps {
 	}
 
 	@Step
+	public void getRequest(String param, String value) {
+		response = request.when().get("{" + param + "}", value);
+		response.then().log().all();
+
+	}
+
+	@Step
 	public void searchIsExecutedSuccesfully(int statusCode) {
 		json = response.then().statusCode(statusCode);
 	}

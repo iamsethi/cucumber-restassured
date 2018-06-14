@@ -32,8 +32,7 @@ public class TwitterStepDefinitions {
 	@When("^a user post the tweet$")
 	public void a_user_post_the_tweet(DataTable tweetMessage) {
 		userSearchSteps.constructRequestQueryParam("status", tweetMessage.raw().get(0).toString());
-
-		userSearchSteps.postRequest("/update.json");
+		userSearchSteps.postRequest("update.json");
 		userSearchSteps.response.then().body(matchesJsonSchemaInClasspath("json/twitter.json"));
 		Serenity.setSessionVariable("tweetId").to(userSearchSteps.response.jsonPath().get("id_str"));
 	}

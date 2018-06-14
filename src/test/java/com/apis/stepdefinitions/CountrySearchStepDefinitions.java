@@ -1,7 +1,5 @@
 package com.apis.stepdefinitions;
 
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
-
 import com.apis.steps.UserSearchSteps;
 
 import cucumber.api.java.en.Given;

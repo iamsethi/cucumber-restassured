@@ -1,10 +1,7 @@
 package com.apis.stepdefinitions;
 
-import java.io.File;
-
 import com.apis.steps.UserSearchSteps;
 
-import static io.restassured.RestAssured.given;
 import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Steps;
 
