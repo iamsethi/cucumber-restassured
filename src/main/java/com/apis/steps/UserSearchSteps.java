@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
+import java.io.File;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -55,6 +56,12 @@ public class UserSearchSteps {
 	@Step
 	public void constructRequestAddAuthHeader(String token) {
 		request = given().header("Authorization", "Bearer " + token);
+
+	}
+
+	@Step
+	public void constructMultiPartFile(String fileLoc) {
+		request = given().header("Content-Type", "multipart/form-data").and().multiPart(new File(fileLoc));
 
 	}
 

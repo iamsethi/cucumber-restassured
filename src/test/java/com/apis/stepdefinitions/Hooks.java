@@ -4,6 +4,12 @@ import cucumber.api.java.Before;
 import io.restassured.RestAssured;
 
 public class Hooks {
+	
+	@Before("@Upload")
+	public static void upload() {
+		RestAssured.baseURI = "http://petstore.swagger.io";
+		RestAssured.basePath = "/v2/pet/1";
+	}
 
 	@Before("@ISO")
 	public static void iso() {

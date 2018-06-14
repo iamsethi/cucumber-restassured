@@ -7,7 +7,7 @@ import net.serenitybdd.cucumber.CucumberWithSerenity;
 
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(features = "src/test/resources/features", glue = { "com.apis.stepdefinitions" }, tags = {
-		"@BasicAuth,@OAuth2,@ISBN,@ISO,@PostTweet" }, plugin = { "pretty", "html:target" })
+		"@BasicAuth,@OAuth2,@ISBN,@ISO,@PostTweet,@Upload" }, plugin = { "pretty", "html:target" })
 public class RunnerTest {
 
 }
