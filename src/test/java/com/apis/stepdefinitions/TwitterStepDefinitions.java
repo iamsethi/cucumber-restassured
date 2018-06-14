@@ -32,7 +32,7 @@ public class TwitterStepDefinitions {
 	@When("^a user post the tweet$")
 	public void a_user_post_the_tweet(DataTable tweetMessage) {
 		userSearchSteps.constructRequestQueryParam("status", tweetMessage.raw().get(0).toString());
-		userSearchSteps.constructOAuthRequest(consumerKey, consumerSecret, accessToken, tokenSecret);
+		userSearchSteps.constructOAuth1Request(consumerKey, consumerSecret, accessToken, tokenSecret);
 		userSearchSteps.postRequest("/update.json");
 		userSearchSteps.response.then().body(matchesJsonSchemaInClasspath("json/twitter.json"));
 		Serenity.setSessionVariable("tweetId").to(userSearchSteps.response.jsonPath().get("id_str"));
@@ -40,7 +40,7 @@ public class TwitterStepDefinitions {
 
 	@When("^a user delete the tweet$")
 	public void a_user_delete_the_tweet() {
-		userSearchSteps.constructOAuthRequest(consumerKey, consumerSecret, accessToken, tokenSecret);
+		userSearchSteps.constructOAuth1Request(consumerKey, consumerSecret, accessToken, tokenSecret);
 		userSearchSteps.postRequest("/destroy/" + Serenity.sessionVariableCalled("tweetId") + ".json");
 
 	}

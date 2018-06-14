@@ -11,4 +11,10 @@ public class Hooks {
 		RestAssured.basePath = "/1.1/statuses";
 	}
 
+	@Before("@Auth")
+	public static void auth() {
+		RestAssured.baseURI = "https://api.imgur.com";
+		RestAssured.basePath = "/3/account/me/";
+	}
+
 }

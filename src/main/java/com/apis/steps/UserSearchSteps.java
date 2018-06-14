@@ -22,9 +22,21 @@ public class UserSearchSteps {
 	public ValidatableResponse json;
 
 	@Step
-	public void constructOAuthRequest(String consumerKey, String consumerSecret, String accessToken,
+	public void constructOAuth1Request(String consumerKey, String consumerSecret, String accessToken,
 			String tokenSecret) {
 		request.given().auth().oauth(consumerKey, consumerSecret, accessToken, tokenSecret);
+
+	}
+
+	@Step
+	public void constructOAuth2Request(String token) {
+		request = given().auth().oauth2(token).log().all();
+
+	}
+
+	@Step
+	public void constructBasicRequest(String username, String password) {
+		request = given().auth().preemptive().basic(username, password).log().all();
 
 	}
 
