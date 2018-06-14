@@ -8,7 +8,6 @@ import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Steps;
 
 public class CountrySearchStepDefinitions {
-	private String ISO_REQ_URL = "http://services.groupkt.com/country/get/iso2code/{isoCode}";
 
 	@Steps
 	UserSearchSteps userSearchSteps;
@@ -20,7 +19,7 @@ public class CountrySearchStepDefinitions {
 
 	@When("^a user retrieves the country by iso$")
 	public void a_user_retrieves_the_country_by_iso() {
-		userSearchSteps.searchByCode(ISO_REQ_URL);
+		userSearchSteps.getRequest();
 	}
 
 	@Then("^the status code is (\\d+)$")

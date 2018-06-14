@@ -11,8 +11,6 @@ import net.thucydides.core.annotations.Steps;
 
 public class BookSearchStepDefinitions {
 
-	private String ISBN_REQ_URL = "https://www.googleapis.com/books/v1/volumes/";
-
 	@Steps
 	UserSearchSteps userSearchSteps;
 
@@ -23,7 +21,7 @@ public class BookSearchStepDefinitions {
 
 	@When("a user retrieves the book by isbn")
 	public void a_user_retrieves_the_book_by_isbn() {
-		userSearchSteps.searchByCode(ISBN_REQ_URL);
+		userSearchSteps.getRequest();
 		// userSearchSteps.response.then().body(matchesJsonSchemaInClasspath("json/isbn.json"));
 	}
 

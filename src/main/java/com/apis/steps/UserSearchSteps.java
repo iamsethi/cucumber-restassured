@@ -66,8 +66,8 @@ public class UserSearchSteps {
 	}
 
 	@Step
-	public void searchByCode(String CODE_SEARCH) {
-		response = request.when().get(CODE_SEARCH);
+	public void getRequest() {
+		response = request.when().get();
 		response.then().log().all();
 
 	}

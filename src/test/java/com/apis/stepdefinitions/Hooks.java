@@ -5,6 +5,18 @@ import io.restassured.RestAssured;
 
 public class Hooks {
 
+	@Before("@ISO")
+	public static void iso() {
+		RestAssured.baseURI = "http://services.groupkt.com";
+		RestAssured.basePath = "/country/get/iso2code/{isoCode}";
+	}
+
+	@Before("@ISBN")
+	public static void isbn() {
+		RestAssured.baseURI = "https://www.googleapis.com";
+		RestAssured.basePath = "/books/v1/volumes";
+	}
+
 	@Before("@PostTweet")
 	public static void init() {
 		RestAssured.baseURI = "https://api.twitter.com";
