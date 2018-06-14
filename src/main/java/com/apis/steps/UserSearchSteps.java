@@ -79,12 +79,7 @@ public class UserSearchSteps {
 
 	}
 
-	@Step
-	public void searchByCode() {
-		response = request.when().get();
-		response.then().log().all();
 
-	}
 
 	@Step
 	public void searchIsExecutedSuccesfully(int statusCode) {

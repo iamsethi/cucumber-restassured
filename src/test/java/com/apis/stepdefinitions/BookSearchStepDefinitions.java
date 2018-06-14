@@ -8,6 +8,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Steps;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class BookSearchStepDefinitions {
 
@@ -22,7 +23,7 @@ public class BookSearchStepDefinitions {
 	@When("a user retrieves the book by isbn")
 	public void a_user_retrieves_the_book_by_isbn() {
 		userSearchSteps.getRequest();
-		// userSearchSteps.response.then().body(matchesJsonSchemaInClasspath("json/isbn.json"));
+		userSearchSteps.response.then().body(matchesJsonSchemaInClasspath("json/isbn.json"));
 	}
 
 	@And("response includes the following$")

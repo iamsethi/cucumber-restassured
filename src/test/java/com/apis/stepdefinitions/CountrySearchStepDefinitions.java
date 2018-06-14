@@ -1,5 +1,7 @@
 package com.apis.stepdefinitions;
 
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+
 import com.apis.steps.UserSearchSteps;
 
 import cucumber.api.java.en.Given;
@@ -20,6 +22,7 @@ public class CountrySearchStepDefinitions {
 	@When("^a user retrieves the country by iso$")
 	public void a_user_retrieves_the_country_by_iso() {
 		userSearchSteps.getRequest();
+
 	}
 
 	@Then("^the status code is (\\d+)$")

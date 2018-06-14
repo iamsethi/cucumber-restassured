@@ -45,7 +45,8 @@ public class AuthStepDefinitions {
 
 	@When("^a user send the request$")
 	public void a_user_send_the_request() {
-		userSearchSteps.searchByCode();
+		userSearchSteps.getRequest();
+		;
 	}
 
 }
