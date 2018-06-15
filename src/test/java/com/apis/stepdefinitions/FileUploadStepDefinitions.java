@@ -1,21 +1,26 @@
 package com.apis.stepdefinitions;
 
-import com.apis.steps.UserSearchSteps;
+import com.amazon.cucumber.TestContext;
+import com.api.steps.UserSteps;
 
 import cucumber.api.java.en.When;
-import net.thucydides.core.annotations.Steps;
 
 public class FileUploadStepDefinitions {
 
-	@Steps
-	UserSearchSteps userSearchSteps;
+	TestContext testContext;
+	UserSteps userSteps;
+
+	public FileUploadStepDefinitions(TestContext context) {
+		testContext = context;
+		userSteps = testContext.getUserSteps();
+	}
 
 	@When("^user upload a file$")
 	public void user_upload_a_file() {
 
-		userSearchSteps
+		userSteps
 				.constructMultiPartFile("/home/ketan/git/cucumber-restassured/src/test/resources/upload/file 1.png");
-		userSearchSteps.postRequest("/uploadImage");
+		userSteps.postRequest("/uploadImage");
 
 	}
 

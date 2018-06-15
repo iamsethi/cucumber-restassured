@@ -1,16 +1,21 @@
 package com.apis.stepdefinitions;
 
-import com.apis.steps.UserSearchSteps;
+import com.amazon.cucumber.TestContext;
+import com.api.steps.UserSteps;
 
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import io.restassured.RestAssured;
-import net.thucydides.core.annotations.Steps;
 
 public class Hooks {
 
-	@Steps
-	UserSearchSteps userSearchSteps;
+	TestContext testContext;
+	UserSteps userSteps;
+
+	public Hooks(TestContext context) {
+		testContext = context;
+		userSteps = testContext.getUserSteps();
+	}
 
 	@Before("@Upload")
 	public static void upload() {
@@ -57,7 +62,7 @@ public class Hooks {
 	@After
 	public void after() {
 		RestAssured.reset();
-		userSearchSteps.request = null;
+		userSteps.request = null;
 	}
 
 }

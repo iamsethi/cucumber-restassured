@@ -2,12 +2,12 @@ package com.apis.stepdefinitions;
 
 import java.util.List;
 
-import com.apis.steps.UserSearchSteps;
+import com.amazon.cucumber.TestContext;
+import com.api.steps.UserSteps;
 
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
-import net.thucydides.core.annotations.Steps;
 
 public class AuthStepDefinitions {
 
@@ -19,8 +19,13 @@ public class AuthStepDefinitions {
 	public String username;
 	public String password;
 
-	@Steps
-	UserSearchSteps userSearchSteps;
+	TestContext testContext;
+	UserSteps userSteps;
+
+	public AuthStepDefinitions(TestContext context) {
+		testContext = context;
+		userSteps = testContext.getUserSteps();
+	}
 
 	@Given("^a user exists with Basic Auth with below details$")
 	public void a_user_exists_with_basic_auth_with_below_details(DataTable accessFields) {
@@ -28,7 +33,7 @@ public class AuthStepDefinitions {
 		this.username = data.get(0).get(1);
 		this.password = data.get(1).get(1);
 
-		userSearchSteps.constructBasicRequest(username, password);
+		userSteps.constructBasicRequest(username, password);
 
 	}
 
@@ -40,12 +45,12 @@ public class AuthStepDefinitions {
 		this.accessTokenUrl = data.get(2).get(1);
 		this.callBackUrl = data.get(3).get(1);
 		this.token = data.get(4).get(1);
-		userSearchSteps.constructOAuth2Request(token);
+		userSteps.constructOAuth2Request(token);
 	}
 
 	@When("^a user send the request$")
 	public void a_user_send_the_request() {
-		userSearchSteps.getRequest();
+		userSteps.getRequest();
 	}
 
 }
