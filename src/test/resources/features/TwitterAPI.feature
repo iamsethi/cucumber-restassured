@@ -9,6 +9,4 @@ Feature: Post a tweet to Twitter
       | tokenSecret    | dNrWU3IhO5vBKKMY7JuUkmQ2p2EPgUZ8udFea6a5yu1dY      |
     When a user post the tweet
       | This is my tweet from Rest Assured |
-    Then the status code is 200
     When a user delete the tweet
-    Then the status code is 200

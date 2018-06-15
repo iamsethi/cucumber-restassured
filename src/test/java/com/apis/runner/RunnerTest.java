@@ -13,7 +13,7 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "src/test/resources/features", glue = { "com.apis.stepdefinitions" }, tags = {
-		"@Swagger,@CreatePet" }, plugin = {
+		"@PostTweet,@Swagger,@ISO,@ISBN,@BasicAuth,@OAuth1,@Auth2" }, plugin = {
 				"com.cucumber.listener.ExtentCucumberFormatter:target/cucumber-reports/report.html" })
 public class RunnerTest {
 

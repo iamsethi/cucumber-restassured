@@ -17,22 +17,16 @@ public class Hooks {
 		userSteps = testContext.getUserSteps();
 	}
 
-	@Before("@CreatePet")
-	public static void createPet() {
-		RestAssured.baseURI = "http://petstore.swagger.io";
-		RestAssured.basePath = "/v2/pet";
-	}
-
 	@Before("@Swagger")
 	public static void getPet() {
 		RestAssured.baseURI = "http://petstore.swagger.io";
-		RestAssured.basePath = "/v2/pet/{id}";
+		RestAssured.basePath = "/v2/pet";
 	}
 
 	@Before("@ISO")
 	public static void iso() {
 		RestAssured.baseURI = "http://services.groupkt.com";
-		RestAssured.basePath = "/country/get/iso2code/{isoCode}";
+		RestAssured.basePath = "/country/get/iso2code";
 	}
 
 	@Before("@ISBN")
@@ -68,7 +62,6 @@ public class Hooks {
 	@After
 	public void after() {
 		RestAssured.reset();
-		userSteps.request = null;
 	}
 
 }
