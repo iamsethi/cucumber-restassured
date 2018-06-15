@@ -39,7 +39,7 @@ public class TwitterStepDefinitions {
 	public void a_user_post_the_tweet(DataTable tweetMessage) {
 		userSteps.constructRequestQueryParam("status", tweetMessage.raw().get(0).toString());
 		userSteps.postRequest("update.json");
-		userSteps.response.then().body(matchesJsonSchemaInClasspath("json/twitter.json"));
+		userSteps.response.then().body(matchesJsonSchemaInClasspath("schema-json/twitter.json"));
 		this.tweetId = userSteps.response.jsonPath().get("id_str");
 	}
 

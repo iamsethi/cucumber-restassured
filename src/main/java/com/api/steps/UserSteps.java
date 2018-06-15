@@ -74,8 +74,8 @@ public class UserSteps {
 	}
 
 	public void postJsonBodyRequest(File file) {
-		request = given().contentType("application/json").body(file).log().all();
-		response = request.when().post().then().contentType(ContentType.JSON).extract().response();
+		response = given().contentType("application/json").body(file).log().all().when().post().then()
+				.contentType(ContentType.JSON).extract().response();
 		response.then().log().all();
 
 	}

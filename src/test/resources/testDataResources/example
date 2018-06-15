@@ -1,0 +1,51 @@
+Example using pathParam():
+
+// Here the key name 'country' must match the url parameter {country}
+RestAssured.given()
+        .pathParam("country", "Finland")
+        .when()
+            .get("http://restcountries.eu/rest/v1/name/{country}")
+        .then()
+            .body("capital", containsString("Helsinki"));
+Example using variable:
+
+String cty = "Finland";
+
+// Here the name of the variable have no relation with the URL parameter {country}
+RestAssured.given()
+        .when()
+            .get("http://restcountries.eu/rest/v1/name/{country}", cty)
+        .then()
+            .body("capital", containsString("Helsinki"));
+Now if you need to call different services, you can also parametrize the "service" like this:
+
+// Search by name
+String val = "Finland";
+String svc = "name";
+
+RestAssured.given()
+        .when()
+            .get("http://restcountries.eu/rest/v1/{service}/{value}", svc, val)
+        .then()
+            .body("capital", containsString("Helsinki"));
+
+
+// Search by ISO code (alpha)
+val = "CH"
+svc = "alpha"
+
+RestAssured.given()
+        .when()
+            .get("http://restcountries.eu/rest/v1/{service}/{value}", svc, val)
+        .then()
+            .body("capital", containsString("Bern"));
+
+// Search by phone intl code (callingcode)
+val = "359"
+svc = "callingcode"
+
+RestAssured.given()
+        .when()
+            .get("http://restcountries.eu/rest/v1/{service}/{value}", svc, val)
+        .then()
+            .body("capital", containsString("Sofia"));

@@ -17,16 +17,16 @@ public class Hooks {
 		userSteps = testContext.getUserSteps();
 	}
 
-	@Before("@Upload")
-	public static void upload() {
-		RestAssured.baseURI = "http://petstore.swagger.io";
-		RestAssured.basePath = "/v2/pet/{id}";
-	}
-
 	@Before("@CreatePet")
 	public static void createPet() {
 		RestAssured.baseURI = "http://petstore.swagger.io";
 		RestAssured.basePath = "/v2/pet";
+	}
+
+	@Before("@Swagger")
+	public static void getPet() {
+		RestAssured.baseURI = "http://petstore.swagger.io";
+		RestAssured.basePath = "/v2/pet/{id}";
 	}
 
 	@Before("@ISO")

@@ -12,6 +12,7 @@ public class SwaggerStepDefinitions {
 
 	TestContext testContext;
 	UserSteps userSteps;
+	public static String petId;
 
 	public SwaggerStepDefinitions(TestContext context) {
 		testContext = context;
@@ -22,11 +23,19 @@ public class SwaggerStepDefinitions {
 	public void user_create_a_pet() {
 		userSteps.postJsonBodyRequest(
 				new File(FileReaderManager.getInstance().getConfigReader().getTestDataResourcePath() + "data.json"));
+		petId = userSteps.response.jsonPath().get("id").toString();
+
+	}
+
+	@When("^user get a pet$")
+	public void user_get_a_pet() {
+		userSteps.constructRequestPathParam("id", petId);
+		userSteps.getRequest();
 	}
 
 	@When("^user upload a file$")
 	public void user_upload_a_file() {
-		userSteps.constructRequestPathParam("id", "20091990");
+		userSteps.constructRequestPathParam("id", petId);
 		userSteps.constructMultiPartFile("/home/ketan/git/cucumber-restassured/src/test/resources/upload/file 1.png");
 		userSteps.postRequest("/uploadImage");
 

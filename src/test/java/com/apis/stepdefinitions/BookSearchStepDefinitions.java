@@ -29,7 +29,7 @@ public class BookSearchStepDefinitions {
 	@When("a user retrieves the book by isbn")
 	public void a_user_retrieves_the_book_by_isbn() {
 		userSteps.getRequest();
-		userSteps.response.then().body(matchesJsonSchemaInClasspath("json/isbn.json"));
+		userSteps.response.then().body(matchesJsonSchemaInClasspath("schema-json/isbn.json"));
 	}
 
 	@And("response includes the following$")
