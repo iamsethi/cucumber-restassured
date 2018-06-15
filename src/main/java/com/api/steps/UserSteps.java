@@ -55,18 +55,18 @@ public class UserSteps {
 
 	}
 
-	public RequestSpecification constructRequestPathParam(String pathParam, String code) {
+	public RequestSpecification constructRequestParam(String pathParam, String code) {
 		return given().pathParam(pathParam, code).log().all();
 
 	}
 
-	public Response postRequest(RequestSpecification request, String post) {
-		return request.when().post(post).then().contentType(ContentType.JSON).extract().response();
+	public Response postRequestWithPath(RequestSpecification request, String path) {
+		return request.when().post(path).then().contentType(ContentType.JSON).extract().response();
 
 	}
 
-	public Response postRequestWithPathParam(RequestSpecification request, String param, String post) {
-		return request.when().post("/{" + param + "}" + post).then().contentType(ContentType.JSON).extract().response();
+	public Response postRequestWithParamPath(RequestSpecification request, String param, String path) {
+		return request.when().post("/{" + param + "}" + path).then().contentType(ContentType.JSON).extract().response();
 
 	}
 
@@ -81,8 +81,22 @@ public class UserSteps {
 
 	}
 
-	public Response getRequestWithPathParam(RequestSpecification request, String param) {
+	// request http://petstore.swagger.io/v2
+	// path /store/inventory
+	public Response getRequestWithPath(RequestSpecification request, String path) {
+		return request.given().when().get(path);
+
+	}
+
+	// request http://petstore.swagger.io/v2
+	// param {id}
+	public Response getRequestWithParam(RequestSpecification request, String param) {
 		return request.when().get("/{" + param + "}");
+
+	}
+
+	public Response getRequestWithParamPath(RequestSpecification request, String param, String path) {
+		return request.when().get("/{" + param + "}" + path);
 
 	}
 

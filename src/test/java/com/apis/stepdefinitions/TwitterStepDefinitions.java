@@ -42,14 +42,14 @@ public class TwitterStepDefinitions {
 	@When("^a user post the tweet$")
 	public void a_user_post_the_tweet(DataTable tweetMessage) {
 		request = userSteps.constructRequestQueryParam(request,"status", tweetMessage.raw().get(0).toString());
-		response = userSteps.postRequest(request, "update.json");
+		response = userSteps.postRequestWithPath(request, "update.json");
 		response.then().body(matchesJsonSchemaInClasspath("schema-json/twitter.json"));
 		this.tweetId = response.jsonPath().get("id_str");
 	}
 
 	@When("^a user delete the tweet$")
 	public void a_user_delete_the_tweet() {
-		userSteps.postRequest(request, "/destroy/" + this.tweetId + ".json");
+		userSteps.postRequestWithPath(request, "/destroy/" + this.tweetId + ".json");
 
 	}
 

@@ -23,13 +23,13 @@ public class CountrySearchStepDefinitions {
 
 	@Given("^a country exists with \"([^\"]*)\"$")
 	public void a_country_exists_with(String iso) {
-		request = userSteps.constructRequestPathParam("isoCode", iso);
+		request = userSteps.constructRequestParam("isoCode", iso);
 	}
 
 	@When("^a user retrieves the country by iso$")
 	public void a_user_retrieves_the_country_by_iso() {
-		response = userSteps.getRequestWithPathParam(request, "isoCode");
-
+		response = userSteps.getRequestWithParam(request, "isoCode");
+		response.then().assertThat().statusCode(200).log().all();
 	}
 
 	@Then("^the status code is (\\d+)$")
