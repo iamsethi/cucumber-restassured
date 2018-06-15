@@ -42,7 +42,12 @@ public class UserSteps {
 	}
 
 	public void constructMultiPartFile(String fileLoc) {
-		request = given().header("Content-Type", "multipart/form-data").and().multiPart(new File(fileLoc));
+		try {
+			request.given().header("Content-Type", "multipart/form-data").and().multiPart(new File(fileLoc));
+		} catch (NullPointerException e) {
+			request = given().header("Content-Type", "multipart/form-data").and().multiPart(new File(fileLoc));
+		}
+
 	}
 
 	public void constructRequestQueryParam(String queryParam, String code) {
@@ -68,15 +73,21 @@ public class UserSteps {
 
 	}
 
-	public void getRequest() {
-		response = request.when().get();
+	public void postJsonBodyRequest(File file) {
+		request = given().contentType("application/json").body(file).log().all();
+		response = request.when().post().then().contentType(ContentType.JSON).extract().response();
 		response.then().log().all();
 
 	}
 
-	public void getRequest(String param, String value) {
-		response = request.when().get("{" + param + "}", value);
-		response.then().log().all();
+	public void getRequest() {
+		try {
+			response = request.when().get();
+			response.then().log().all();
+		} catch (NullPointerException e) {
+			response = given().when().get();
+			response.then().log().all();
+		}
 
 	}
 

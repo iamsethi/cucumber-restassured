@@ -1,0 +1,24 @@
+{
+	"id": 20091990,
+	"category": 
+	{
+		"id": 0,
+		"name": "dog"
+	},
+
+	"name": "cute doggie",
+	"photoUrls": 
+	[
+		"string"
+	],
+
+	"tags": 
+	[
+		{
+			"id": 0,
+			"name": "string"
+		}
+	],
+
+	"status": "available"
+}
