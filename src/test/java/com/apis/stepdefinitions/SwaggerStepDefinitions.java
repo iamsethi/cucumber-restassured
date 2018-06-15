@@ -36,7 +36,8 @@ public class SwaggerStepDefinitions {
 	@When("^user upload a file$")
 	public void user_upload_a_file() {
 		userSteps.constructRequestPathParam("id", petId);
-		userSteps.constructMultiPartFile("/home/ketan/git/cucumber-restassured/src/test/resources/upload/file 1.png");
+		userSteps.constructMultiPartFile(
+				new File(FileReaderManager.getInstance().getConfigReader().getTestDataResourcePath() + "dog.png"));
 		userSteps.postRequest("/uploadImage");
 
 	}

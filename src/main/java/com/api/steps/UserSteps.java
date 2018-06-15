@@ -41,11 +41,11 @@ public class UserSteps {
 		request = given().header("Authorization", "Bearer " + token);
 	}
 
-	public void constructMultiPartFile(String fileLoc) {
+	public void constructMultiPartFile(File file) {
 		try {
-			request.given().header("Content-Type", "multipart/form-data").and().multiPart(new File(fileLoc));
+			request.given().header("Content-Type", "multipart/form-data").and().multiPart(file);
 		} catch (NullPointerException e) {
-			request = given().header("Content-Type", "multipart/form-data").and().multiPart(new File(fileLoc));
+			request = given().header("Content-Type", "multipart/form-data").and().multiPart(file);
 		}
 
 	}
