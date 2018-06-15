@@ -11,7 +11,7 @@
 		<protocol>https</protocol>
 
 		<!-- title of the document -->
-		<documentTitle>Cucumber Framework</documentTitle>
+		<documentTitle>API Rest Assured Framework</documentTitle>
 
 		<!-- report name - displayed at top-nav -->
 		<reportName>Cucumber Report</reportName>

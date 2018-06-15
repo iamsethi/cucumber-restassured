@@ -25,15 +25,17 @@ public class SwaggerStepDefinitions {
 
 	@When("^user create a pet$")
 	public void user_create_a_pet() {
-		response = userSteps.postJsonBodyRequest(
-				new File(FileReaderManager.getInstance().getConfigReader().getTestDataResourcePath() + "dog.json"));
+		response = userSteps.postWithJsonFile(
+				new File(FileReaderManager.getInstance().getConfigReader().getTestDataResourcePath() + "dog.json"),
+				"/pet");
 		petId = response.jsonPath().get("id").toString();
 
 	}
 
 	@When("^user get a pet$")
 	public void user_get_a_pet() {
-		request = userSteps.constructRequestParam("id", petId);
+		request = userSteps.constructRequestWithParam(given(), "id", petId);
+		userSteps.constructRequestWithPath(request, "/pet");
 		response = userSteps.getRequestWithParam(request, "id");
 		response.then().assertThat().statusCode(200).log().all();
 
@@ -41,7 +43,9 @@ public class SwaggerStepDefinitions {
 
 	@When("^user upload a file$")
 	public void user_upload_a_file() {
-		request = userSteps.constructRequestParam("id", petId);
+		request = userSteps.constructRequestWithPath(given(), "/pet");
+		request = userSteps.constructRequestWithParam(request, "id", petId);
+
 		request = userSteps.constructMultiPartFile(request,
 				new File(FileReaderManager.getInstance().getConfigReader().getTestDataResourcePath() + "dog.png"));
 		userSteps.postRequestWithParamPath(request, "id", "/uploadImage");
@@ -50,8 +54,9 @@ public class SwaggerStepDefinitions {
 
 	@When("^user update an existing pet$")
 	public void user_update_an_existing_pet() {
-		userSteps.postJsonBodyRequest(new File(
-				FileReaderManager.getInstance().getConfigReader().getTestDataResourcePath() + "elephant.json"));
+		userSteps.postWithJsonFile(
+				new File(FileReaderManager.getInstance().getConfigReader().getTestDataResourcePath() + "elephant.json"),
+				"/pet");
 
 	}
 
@@ -65,6 +70,11 @@ public class SwaggerStepDefinitions {
 
 	@When("^user deletes a pet$")
 	public void user_deletes_a_pet() {
+		// http://petstore.swagger.io/v2/pet/:id
+		request = userSteps.constructRequestWithParam(given(), "id", petId);
+		response = userSteps.deleteRequestWithParam(request, "id");
+		response.then().assertThat().statusCode(200).log().all();
+
 	}
 
 	@When("^user checks the inventory$")

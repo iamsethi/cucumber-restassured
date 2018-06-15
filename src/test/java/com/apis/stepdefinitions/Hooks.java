@@ -20,7 +20,7 @@ public class Hooks {
 	@Before("@Swagger")
 	public static void getPet() {
 		RestAssured.baseURI = "http://petstore.swagger.io";
-		RestAssured.basePath = "/v2/pet";
+		RestAssured.basePath = "/v2";
 	}
 
 	@Before("@ISO")

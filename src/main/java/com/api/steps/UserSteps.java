@@ -44,6 +44,11 @@ public class UserSteps {
 
 	}
 
+	public RequestSpecification constructRequestWithPath(RequestSpecification request, String path) {
+		return request.given().basePath(path).log().all();
+
+	}
+
 	public RequestSpecification constructRequestQueryParam(RequestSpecification request, String queryParam,
 			String code) {
 		return request.queryParam(queryParam, code).log().all();
@@ -55,8 +60,8 @@ public class UserSteps {
 
 	}
 
-	public RequestSpecification constructRequestParam(String pathParam, String code) {
-		return given().pathParam(pathParam, code).log().all();
+	public RequestSpecification constructRequestWithParam(RequestSpecification request, String pathParam, String code) {
+		return request.pathParam(pathParam, code).log().all();
 
 	}
 
@@ -70,8 +75,8 @@ public class UserSteps {
 
 	}
 
-	public Response postJsonBodyRequest(File file) {
-		return given().contentType("application/json").body(file).log().all().when().post().then()
+	public Response postWithJsonFile(File file, String path) {
+		return given().contentType("application/json").body(file).log().all().when().post(path).then()
 				.contentType(ContentType.JSON).extract().response();
 
 	}
@@ -97,6 +102,11 @@ public class UserSteps {
 
 	public Response getRequestWithParamPath(RequestSpecification request, String param, String path) {
 		return request.when().get("/{" + param + "}" + path);
+
+	}
+
+	public Response deleteRequestWithParam(RequestSpecification request, String param) {
+		return request.when().delete("/{" + param + "}").then().contentType(ContentType.JSON).extract().response();
 
 	}
 

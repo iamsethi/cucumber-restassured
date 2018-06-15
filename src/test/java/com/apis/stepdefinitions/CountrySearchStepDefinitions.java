@@ -1,6 +1,7 @@
 package com.apis.stepdefinitions;
 
 import com.amazon.cucumber.TestContext;
+import static io.restassured.RestAssured.given;
 import com.api.steps.UserSteps;
 
 import cucumber.api.java.en.Given;
@@ -23,7 +24,7 @@ public class CountrySearchStepDefinitions {
 
 	@Given("^a country exists with \"([^\"]*)\"$")
 	public void a_country_exists_with(String iso) {
-		request = userSteps.constructRequestParam("isoCode", iso);
+		request = userSteps.constructRequestWithParam(given(), "isoCode", iso);
 	}
 
 	@When("^a user retrieves the country by iso$")
