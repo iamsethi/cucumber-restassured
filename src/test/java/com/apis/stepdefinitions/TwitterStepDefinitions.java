@@ -11,8 +11,10 @@ import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
 
 public class TwitterStepDefinitions {
 	private String consumerKey;
@@ -22,8 +24,9 @@ public class TwitterStepDefinitions {
 
 	TestContext testContext;
 	UserSteps userSteps;
-
-	private RequestSpecification request;
+	public static ResponseSpecBuilder builder;
+	public static ResponseSpecification responseSpec;
+	private RequestSpecification requestBody;
 	private Response responseBody;
 	private String tweetId;
 
@@ -39,13 +42,13 @@ public class TwitterStepDefinitions {
 		this.consumerSecret = accessFields.raw().get(1).get(1);
 		this.accessToken = accessFields.raw().get(2).get(1);
 		this.tokenSecret = accessFields.raw().get(3).get(1);
-		request = userSteps.constructOAuth1Request(consumerKey, consumerSecret, accessToken, tokenSecret);
+		requestBody = userSteps.constructOAuth1Request(consumerKey, consumerSecret, accessToken, tokenSecret);
 	}
 
 	@When("^a user post the tweet$")
 	public void a_user_post_the_tweet(DataTable tweetMessage) {
 		// https://api.twitter.com/1.1/statuses/update.json?status=Hi There!!
-		request = userSteps.constructRequestWithPath(request, "/update.json?");
+		RequestSpecification request = userSteps.constructRequestWithPath(requestBody, "/update.json");
 		request = userSteps.constructRequestQueryParam(request, "status", tweetMessage.raw().get(0).toString());
 		responseBody = userSteps.postRequest(request);
 		responseBody.then().body(matchesJsonSchemaInClasspath("schema-json/twitter.json"));
@@ -54,7 +57,11 @@ public class TwitterStepDefinitions {
 
 	@When("^a user delete the tweet$")
 	public void a_user_delete_the_tweet() {
-		// userSteps.postRequestWithPath(request, "/destroy/" + this.tweetId + ".json");
+		// https://api.twitter.com/1.1/statuses/destroy/{id}.json
+		RequestSpecification request = userSteps.constructRequestWithPath(requestBody, "/destroy");
+		request = userSteps.constructRequestWithParam(request, "id", tweetId);
+		request = userSteps.constructRequestWithPath(request, ".json");
+		userSteps.postRequestWithParam(request, "id");
 
 	}
 

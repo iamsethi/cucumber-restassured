@@ -54,13 +54,13 @@ public class SwaggerStepDefinitions {
 
 	@When("^user upload a file$")
 	public void user_upload_a_file() {
-		// http://petstore.swagger.io/v2/pet/:id
+		// http://petstore.swagger.io/v2/pet/:id/uploadImage
 		request = userSteps.constructRequestWithPath(given(), "/pet");
 		request = userSteps.constructRequestWithParam(request, "id", petId);
-
+		request = userSteps.constructRequestWithPath(given(), "/uploadImage");
 		request = userSteps.constructMultiPartFile(request,
 				new File(FileReaderManager.getInstance().getConfigReader().getTestDataResourcePath() + "dog.png"));
-		responseBody = userSteps.postRequestWithParamPath(request, "id", "/uploadImage");
+		responseBody = userSteps.postRequestWithParam(request, "id");
 		responseBody.then().assertThat().statusCode(200).log().all();
 
 	}

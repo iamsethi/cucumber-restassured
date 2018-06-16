@@ -71,8 +71,8 @@ public class UserSteps {
 
 	}
 
-	public Response postRequestWithParamPath(RequestSpecification request, String param, String path) {
-		return request.when().post("/{" + param + "}" + path).then().contentType(ContentType.JSON).extract().response();
+	public Response postRequestWithParam(RequestSpecification request, String param) {
+		return request.when().post("/{" + param + "}").then().contentType(ContentType.JSON).extract().response();
 
 	}
 
