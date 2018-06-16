@@ -2,11 +2,14 @@ package com.apis.stepdefinitions;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
+import org.junit.Assert;
+
 import com.amazon.cucumber.TestContext;
 import com.api.steps.UserSteps;
 
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -21,7 +24,7 @@ public class TwitterStepDefinitions {
 	UserSteps userSteps;
 
 	private RequestSpecification request;
-	private Response response;
+	private Response responseBody;
 	private String tweetId;
 
 	public TwitterStepDefinitions(TestContext context) {
@@ -41,16 +44,23 @@ public class TwitterStepDefinitions {
 
 	@When("^a user post the tweet$")
 	public void a_user_post_the_tweet(DataTable tweetMessage) {
-		request = userSteps.constructRequestQueryParam(request,"status", tweetMessage.raw().get(0).toString());
-		response = userSteps.postRequestWithPath(request, "update.json");
-		response.then().body(matchesJsonSchemaInClasspath("schema-json/twitter.json"));
-		this.tweetId = response.jsonPath().get("id_str");
+		// https://api.twitter.com/1.1/statuses/update.json?status=Hi There!!
+		request = userSteps.constructRequestWithPath(request, "/update.json?");
+		request = userSteps.constructRequestQueryParam(request, "status", tweetMessage.raw().get(0).toString());
+		responseBody = userSteps.postRequest(request);
+		responseBody.then().body(matchesJsonSchemaInClasspath("schema-json/twitter.json"));
+		this.tweetId = responseBody.jsonPath().get("id_str");
 	}
 
 	@When("^a user delete the tweet$")
 	public void a_user_delete_the_tweet() {
-		userSteps.postRequestWithPath(request, "/destroy/" + this.tweetId + ".json");
+		// userSteps.postRequestWithPath(request, "/destroy/" + this.tweetId + ".json");
 
+	}
+
+	@Then("^twitter response status code should be \"([^\"]*)\"$")
+	public void theResponseStatusCodeShouldBe(int expectedResponseCode) {
+		Assert.assertEquals(expectedResponseCode, responseBody.then().extract().statusCode());
 	}
 
 }

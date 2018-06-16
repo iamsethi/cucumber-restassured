@@ -23,13 +23,14 @@ public class CountrySearchStepDefinitions {
 	}
 
 	@Given("^a country exists with \"([^\"]*)\"$")
-	public void a_country_exists_with(String iso) {
-		request = userSteps.constructRequestWithParam(given(), "isoCode", iso);
+	public void a_country_exists_with(String countryCode) {
+		request = userSteps.constructRequestWithParam(given(), "code", countryCode);
 	}
 
 	@When("^a user retrieves the country by iso$")
 	public void a_user_retrieves_the_country_by_iso() {
-		response = userSteps.getRequestWithParam(request, "isoCode");
+		// http://services.groupkt.com/country/get/iso2code/BR
+		response = userSteps.getRequestWithParam(request, "code"); // BR is code and it's value is countryCode
 		response.then().assertThat().statusCode(200).log().all();
 	}
 

@@ -32,6 +32,7 @@ public class BookSearchStepDefinitions {
 
 	@When("a user retrieves the book by isbn")
 	public void a_user_retrieves_the_book_by_isbn() {
+		// https://www.googleapis.com/books/v1/volumes?q=isbn:9781451648546
 		response = userSteps.getRequest(request);
 		response.then().body(matchesJsonSchemaInClasspath("schema-json/isbn.json"));
 		response.then().assertThat().statusCode(200).log().all();
@@ -42,7 +43,7 @@ public class BookSearchStepDefinitions {
 		userSteps.iShouldFindFollowingResponse(response, responseFields);
 	}
 
-	@And("response includes the following in any order")
+	@And("book response includes the following in any order")
 	public void response_contains_in_any_order(Map<String, String> responseFields) {
 		userSteps.iShouldFindFollowingResponseInAnyOrder(response, responseFields);
 	}

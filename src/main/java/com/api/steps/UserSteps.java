@@ -66,8 +66,8 @@ public class UserSteps {
 
 	}
 
-	public Response postRequestWithPath(RequestSpecification request, String path) {
-		return request.when().post(path).then().contentType(ContentType.JSON).extract().response();
+	public Response postRequest(RequestSpecification request) {
+		return request.when().post().then().contentType(ContentType.JSON).extract().response();
 
 	}
 

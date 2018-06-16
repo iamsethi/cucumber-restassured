@@ -35,7 +35,7 @@ public class Hooks {
 		RestAssured.basePath = "/books/v1/volumes";
 	}
 
-	@Before("@PostTweet")
+	@Before("@Twitter")
 	public static void init() {
 		RestAssured.baseURI = "https://api.twitter.com";
 		RestAssured.basePath = "/1.1/statuses";
