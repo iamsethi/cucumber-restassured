@@ -34,13 +34,9 @@ public class AuthStepDefinitions {
 		userSteps = testContext.getUserSteps();
 	}
 
-	@Given("^a user exists with Basic Auth with below details$")
-	public void a_user_exists_with_basic_auth_with_below_details(DataTable accessFields) {
-		List<List<String>> data = accessFields.raw();
-		this.username = data.get(0).get(1);
-		this.password = data.get(1).get(1);
+	@Given("^a user exists with Basic Auth with \"([^\"]*)\" and \"([^\"]*)\"$")
+	public void a_user_exists_with_Basic_Auth_with_and(String username, String password) {
 		request = userSteps.constructBasicRequest(username, password);
-
 	}
 
 	@Given("^a user exists with OATH1 with below details$")

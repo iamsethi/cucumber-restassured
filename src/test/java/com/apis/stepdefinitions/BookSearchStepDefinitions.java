@@ -37,7 +37,7 @@ public class BookSearchStepDefinitions {
 		response.then().assertThat().statusCode(200).log().all();
 	}
 
-	@And("response includes the following$")
+	@And("book response includes the following$")
 	public void response_equals(Map<String, String> responseFields) {
 		userSteps.iShouldFindFollowingResponse(response, responseFields);
 	}

@@ -1,11 +1,13 @@
 Feature: Authentication testing
 
   @BasicAuth
-  Scenario: User calls web service with Basic authentication
-    Given a user exists with Basic Auth with below details
-      | username | postman  |
-      | password | password |
+  Scenario Outline: User calls web service with Basic authentication
+    Given a user exists with Basic Auth with "<username>" and "<password>"
     When a user send the request
+
+    Examples: 
+      | username | password |
+      | postman  | password |
 
   @OAuth1
   Scenario: User calls web service with OAuth1 authentication

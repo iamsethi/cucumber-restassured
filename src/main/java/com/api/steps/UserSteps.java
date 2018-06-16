@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
@@ -45,7 +46,7 @@ public class UserSteps {
 	}
 
 	public RequestSpecification constructRequestWithPath(RequestSpecification request, String path) {
-		return request.given().basePath(path).log().all();
+		return request.given().basePath(RestAssured.basePath.concat(path)).log().all();
 
 	}
 
@@ -75,8 +76,8 @@ public class UserSteps {
 
 	}
 
-	public Response postWithJsonFile(File file, String path) {
-		return given().contentType("application/json").body(file).log().all().when().post(path).then()
+	public Response postWithJsonFile(RequestSpecification request, File file) {
+		return request.contentType("application/json").body(file).log().all().when().post().then()
 				.contentType(ContentType.JSON).extract().response();
 
 	}
