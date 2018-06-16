@@ -27,7 +27,7 @@ public class Hooks {
 	@Before("@ISO")
 	public static void iso() {
 		RestAssured.baseURI = "http://services.groupkt.com";
-		RestAssured.basePath = "/country/get/iso2code";
+		RestAssured.basePath = "/country";
 	}
 
 	@Before("@ISBN")

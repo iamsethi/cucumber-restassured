@@ -12,6 +12,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import static io.restassured.RestAssured.given;
 
 public class BookSearchStepDefinitions {
 
@@ -27,7 +28,7 @@ public class BookSearchStepDefinitions {
 
 	@Given("a book exists with an isbn of (.*)")
 	public void a_book_exists_with_isbn(String isbn) {
-		request = userSteps.constructRequestQueryParam("q", "isbn" + ":" + isbn);
+		request = userSteps.constructRequestWithQueryParam(given(), "q", "isbn" + ":" + isbn);
 	}
 
 	@When("a user retrieves the book by isbn")

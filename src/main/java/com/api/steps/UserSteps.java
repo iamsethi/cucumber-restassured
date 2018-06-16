@@ -61,13 +61,13 @@ public class UserSteps {
 
 	}
 
-	public Response postRequest(RequestSpecification request) {
-		return request.when().post().then().contentType(ContentType.JSON).extract().response();
+	public Response getRequest(RequestSpecification request) {
+		return request.given().when().get();
 
 	}
 
-	public Response postRequestWithParam(RequestSpecification request, String param) {
-		return request.when().post("/{" + param + "}").then().contentType(ContentType.JSON).extract().response();
+	public Response postRequest(RequestSpecification request) {
+		return request.when().post().then().contentType(ContentType.JSON).extract().response();
 
 	}
 
@@ -77,32 +77,8 @@ public class UserSteps {
 
 	}
 
-	public Response getRequest(RequestSpecification request) {
-		return request.given().when().get();
-
-	}
-
-	// request http://petstore.swagger.io/v2
-	// path /store/inventory
-	public Response getRequestWithPath(RequestSpecification request, String path) {
-		return request.given().when().get(path);
-
-	}
-
-	// request http://petstore.swagger.io/v2
-	// param {id}
-	public Response getRequestWithParam(RequestSpecification request, String param) {
-		return request.when().get("/{" + param + "}");
-
-	}
-
-	public Response getRequestWithParamPath(RequestSpecification request, String param, String path) {
-		return request.when().get("/{" + param + "}" + path);
-
-	}
-
-	public Response deleteRequestWithParam(RequestSpecification request, String param) {
-		return request.when().delete("/{" + param + "}").then().contentType(ContentType.JSON).extract().response();
+	public Response deleteRequest(RequestSpecification request) {
+		return request.when().delete().then().contentType(ContentType.JSON).extract().response();
 
 	}
 

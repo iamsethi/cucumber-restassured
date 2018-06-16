@@ -30,7 +30,9 @@ public class CountrySearchStepDefinitions {
 	@When("^a user retrieves the country by iso$")
 	public void a_user_retrieves_the_country_by_iso() {
 		// http://services.groupkt.com/country/get/iso2code/BR
-		response = userSteps.getRequestWithParam(request, "code"); // BR is code and it's value is countryCode
+		request = userSteps.constructRequestWithPath(request, "/get/iso2code/{code}");// BR is code and it's value is
+																						// countryCode
+		response = userSteps.getRequest(request);
 		response.then().assertThat().statusCode(200).log().all();
 	}
 

@@ -43,24 +43,23 @@ public class SwaggerStepDefinitions {
 
 	@When("^user get a pet$")
 	public void user_get_a_pet() {
-		// http://petstore.swagger.io/v2/pet/:id
-		request = userSteps.constructRequestWithPath(given(), "/pet");
+		// http://petstore.swagger.io/v2/pet/{id}
+		request = userSteps.constructRequestWithPath(given(), "/pet/{id}");
 		request = userSteps.constructRequestWithParam(request, "id", petId);
 
-		responseBody = userSteps.getRequestWithParam(request, "id");
+		responseBody = userSteps.getRequest(request);
 		responseBody.then().assertThat().statusCode(200).log().all();
 
 	}
 
 	@When("^user upload a file$")
 	public void user_upload_a_file() {
-		// http://petstore.swagger.io/v2/pet/:id/uploadImage
-		request = userSteps.constructRequestWithPath(given(), "/pet");
+		// http://petstore.swagger.io/v2/pet/{id}/uploadImage
+		request = userSteps.constructRequestWithPath(given(), "/pet/{id}/uploadImage");
 		request = userSteps.constructRequestWithParam(request, "id", petId);
-		request = userSteps.constructRequestWithPath(given(), "/uploadImage");
 		request = userSteps.constructMultiPartFile(request,
 				new File(FileReaderManager.getInstance().getConfigReader().getTestDataResourcePath() + "dog.png"));
-		responseBody = userSteps.postRequestWithParam(request, "id");
+		responseBody = userSteps.postRequest(request);
 		responseBody.then().assertThat().statusCode(200).log().all();
 
 	}
@@ -96,10 +95,10 @@ public class SwaggerStepDefinitions {
 
 	@When("^user deletes a pet$")
 	public void user_deletes_a_pet() {
-		// http://petstore.swagger.io/v2/pet/:id
-		request = userSteps.constructRequestWithPath(given(), "/pet");
+		// http://petstore.swagger.io/v2/pet/{id}
+		request = userSteps.constructRequestWithPath(given(), "/pet/{id}");
 		request = userSteps.constructRequestWithParam(request, "id", petId);
-		responseBody = userSteps.deleteRequestWithParam(request, "id");
+		responseBody = userSteps.deleteRequest(request);
 		responseBody.then().assertThat().statusCode(200).log().all();
 
 	}
