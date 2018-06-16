@@ -1,6 +1,7 @@
 package com.apis.stepdefinitions;
 
 import com.amazon.cucumber.TestContext;
+import com.api.managers.FileReaderManager;
 import com.api.steps.UserSteps;
 
 import cucumber.api.java.After;
@@ -55,8 +56,10 @@ public class Hooks {
 
 	@Before("@BasicAuth")
 	public static void BasicAuth() {
-		RestAssured.baseURI = "https://postman-echo.com";
-		RestAssured.basePath = "/basic-auth";
+		RestAssured.baseURI = FileReaderManager.getInstance().getServiceFileReader()
+				.getServiceEndPoint("BASIC_AUTH_BASEURI");
+		RestAssured.basePath = FileReaderManager.getInstance().getServiceFileReader()
+				.getServiceEndPoint("BASIC_AUTH_BASEPATH");
 	}
 
 	@After

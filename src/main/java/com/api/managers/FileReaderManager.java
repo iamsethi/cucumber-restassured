@@ -2,12 +2,14 @@ package com.api.managers;
 
 import com.amazon.dataProviders.ConfigFileReader;
 import com.amazon.dataProviders.JsonDataReader;
+import com.amazon.dataProviders.ServiceFileReader;
 
 public class FileReaderManager {// Singleton Design Pattern
 
 	private static FileReaderManager fileReaderManager = new FileReaderManager();
 	private static ConfigFileReader configFileReader;
 	private static JsonDataReader jsonDataReader;
+	private static ServiceFileReader serviceFileReader;
 
 	private FileReaderManager() {
 	}
@@ -22,5 +24,9 @@ public class FileReaderManager {// Singleton Design Pattern
 
 	public JsonDataReader getJsonReader() {
 		return (jsonDataReader == null) ? new JsonDataReader() : jsonDataReader;
+	}
+
+	public ServiceFileReader getServiceFileReader() {
+		return (serviceFileReader == null) ? new ServiceFileReader() : serviceFileReader;
 	}
 }

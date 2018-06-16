@@ -3,7 +3,7 @@ package com.apis.stepdefinitions;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 import org.junit.Assert;
-
+import static io.restassured.RestAssured.given;
 import com.amazon.cucumber.TestContext;
 import com.api.steps.UserSteps;
 
@@ -42,13 +42,15 @@ public class TwitterStepDefinitions {
 		this.consumerSecret = accessFields.raw().get(1).get(1);
 		this.accessToken = accessFields.raw().get(2).get(1);
 		this.tokenSecret = accessFields.raw().get(3).get(1);
-		requestBody = userSteps.constructOAuth1Request(consumerKey, consumerSecret, accessToken, tokenSecret);
+
 	}
 
 	@When("^a user post the tweet$")
 	public void a_user_post_the_tweet(DataTable tweetMessage) {
 		// https://api.twitter.com/1.1/statuses/update.json?status=Hi There!!
-		RequestSpecification request = userSteps.constructRequestWithPath(requestBody, "/update.json");
+		RequestSpecification request = userSteps.constructRequestWithPath(
+				userSteps.constructOAuth1Request(consumerKey, consumerSecret, accessToken, tokenSecret),
+				"/update.json");
 		request = userSteps.constructRequestQueryParam(request, "status", tweetMessage.raw().get(0).toString());
 		responseBody = userSteps.postRequest(request);
 		responseBody.then().body(matchesJsonSchemaInClasspath("schema-json/twitter.json"));
@@ -58,9 +60,9 @@ public class TwitterStepDefinitions {
 	@When("^a user delete the tweet$")
 	public void a_user_delete_the_tweet() {
 		// https://api.twitter.com/1.1/statuses/destroy/{id}.json
-		RequestSpecification request = userSteps.constructRequestWithPath(requestBody, "/destroy");
+		RequestSpecification request = userSteps.constructRequestWithPath(
+				userSteps.constructOAuth1Request(consumerKey, consumerSecret, accessToken, tokenSecret), "/destroy");
 		request = userSteps.constructRequestWithParam(request, "id", tweetId);
-		request = userSteps.constructRequestWithPath(request, ".json");
 		userSteps.postRequestWithParam(request, "id");
 
 	}

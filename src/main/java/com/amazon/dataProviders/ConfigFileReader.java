@@ -49,13 +49,6 @@ public class ConfigFileReader {
 					"Report Config Path not specified in the Configuration.properties file for the Key:reportConfigPath");
 	}
 
-	public String getServiceEndPoint() {
-		String serviceConfigPath = properties.getProperty("serviceEndPoint");
-		if (serviceConfigPath != null)
-			return serviceConfigPath;
-		else
-			throw new RuntimeException(
-					"Service End Point Config Path not specified in the Configuration.properties file for the Key:serviceConfigPath");
-	}
+
 
 }
