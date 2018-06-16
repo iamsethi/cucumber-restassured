@@ -89,7 +89,7 @@ public class SwaggerStepDefinitions {
 	public void user_finds_pets_by_status() {
 		// http://petstore.swagger.io/v2/pet/findByStatus?status=available
 		request = userSteps.constructRequestWithPath(given(), "/pet/finByStatus");
-		request = userSteps.constructRequestQueryParam(request, "status", "available");
+		request = userSteps.constructRequestWithQueryParam(request, "status", "available");
 		responseBody.then().assertThat().statusCode(200).log().all();
 
 	}

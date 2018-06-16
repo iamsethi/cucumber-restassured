@@ -10,5 +10,9 @@ Feature: Post a tweet to Twitter
     When a user post the tweet
       | This is my tweet from Rest Assured |
     Then twitter response status code should be "200"
+    When user like the tweet
+    Then twitter response status code should be "200"
+    When user unlike the tweet
+    Then twitter response status code should be "200"
     When a user delete the tweet
     Then twitter response status code should be "200"

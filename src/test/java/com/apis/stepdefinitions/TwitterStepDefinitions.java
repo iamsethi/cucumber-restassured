@@ -3,7 +3,7 @@ package com.apis.stepdefinitions;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 import org.junit.Assert;
-import static io.restassured.RestAssured.given;
+
 import com.amazon.cucumber.TestContext;
 import com.api.steps.UserSteps;
 
@@ -26,7 +26,6 @@ public class TwitterStepDefinitions {
 	UserSteps userSteps;
 	public static ResponseSpecBuilder builder;
 	public static ResponseSpecification responseSpec;
-	private RequestSpecification requestBody;
 	private Response responseBody;
 	private String tweetId;
 
@@ -50,20 +49,46 @@ public class TwitterStepDefinitions {
 		// https://api.twitter.com/1.1/statuses/update.json?status=Hi There!!
 		RequestSpecification request = userSteps.constructRequestWithPath(
 				userSteps.constructOAuth1Request(consumerKey, consumerSecret, accessToken, tokenSecret),
-				"/update.json");
-		request = userSteps.constructRequestQueryParam(request, "status", tweetMessage.raw().get(0).toString());
+				"/statuses/update.json");
+		request = userSteps.constructRequestWithQueryParam(request, "status", tweetMessage.raw().get(0).toString());
 		responseBody = userSteps.postRequest(request);
 		responseBody.then().body(matchesJsonSchemaInClasspath("schema-json/twitter.json"));
 		this.tweetId = responseBody.jsonPath().get("id_str");
+	}
+
+	@When("^user like the tweet$")
+	public void user_like_the_tweet() {
+		// https://api.twitter.com/1.1/favorites/create.json?id=243138128959913986
+		RequestSpecification request = userSteps.constructRequestWithPath(
+				userSteps.constructOAuth1Request(consumerKey, consumerSecret, accessToken, tokenSecret),
+				"/favorites/create.json");
+		request = userSteps.constructRequestWithQueryParam(request, "id", tweetId);
+		responseBody = userSteps.postRequest(request);
+		responseBody.then().assertThat().statusCode(200).log().all();
+
+	}
+
+	@When("^user unlike the tweet$")
+	public void user_unlike_the_tweet() {
+		// https://api.twitter.com/1.1/favorites/destroy.json?id=243138128959913986
+		RequestSpecification request = userSteps.constructRequestWithPath(
+				userSteps.constructOAuth1Request(consumerKey, consumerSecret, accessToken, tokenSecret),
+				"/favorites/destroy.json");
+		request = userSteps.constructRequestWithQueryParam(request, "id", tweetId);
+		responseBody = userSteps.postRequest(request);
+		responseBody.then().assertThat().statusCode(200).log().all();
+
 	}
 
 	@When("^a user delete the tweet$")
 	public void a_user_delete_the_tweet() {
 		// https://api.twitter.com/1.1/statuses/destroy/{id}.json
 		RequestSpecification request = userSteps.constructRequestWithPath(
-				userSteps.constructOAuth1Request(consumerKey, consumerSecret, accessToken, tokenSecret), "/destroy");
+				userSteps.constructOAuth1Request(consumerKey, consumerSecret, accessToken, tokenSecret),
+				"/statuses/destroy/{id}.json");
 		request = userSteps.constructRequestWithParam(request, "id", tweetId);
-		userSteps.postRequestWithParam(request, "id");
+		responseBody = userSteps.postRequest(request);
+		responseBody.then().assertThat().statusCode(200).log().all();
 
 	}
 

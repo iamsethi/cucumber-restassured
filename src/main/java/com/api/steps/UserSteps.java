@@ -14,7 +14,6 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
-import io.restassured.specification.FilterableRequestSpecification;
 import io.restassured.specification.RequestSpecification;
 
 public class UserSteps {
@@ -51,14 +50,9 @@ public class UserSteps {
 
 	}
 
-	public RequestSpecification constructRequestQueryParam(RequestSpecification request, String queryParam,
+	public RequestSpecification constructRequestWithQueryParam(RequestSpecification request, String queryParam,
 			String code) {
 		return request.queryParam(queryParam, code).log().all();
-
-	}
-
-	public RequestSpecification constructRequestQueryParam(String queryParam, String code) {
-		return given().queryParam(queryParam, code).log().all();
 
 	}
 

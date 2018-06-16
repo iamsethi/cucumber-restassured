@@ -39,7 +39,7 @@ public class Hooks {
 	@Before("@Twitter")
 	public static void init() {
 		RestAssured.baseURI = "https://api.twitter.com";
-		RestAssured.basePath = "/1.1/statuses";
+		RestAssured.basePath = "/1.1";
 	}
 
 	@Before("@OAuth1")
