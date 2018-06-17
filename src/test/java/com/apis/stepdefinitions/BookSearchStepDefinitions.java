@@ -5,11 +5,13 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 import java.util.Map;
 
 import com.amazon.cucumber.TestContext;
+import com.api.managers.FileReaderManager;
 import com.api.steps.UserSteps;
 
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
+import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import static io.restassured.RestAssured.given;
@@ -24,6 +26,10 @@ public class BookSearchStepDefinitions {
 	public BookSearchStepDefinitions(TestContext context) {
 		testContext = context;
 		userSteps = testContext.getUserSteps();
+		RestAssured.baseURI = FileReaderManager.getInstance().getServiceFileReader()
+				.getServiceEndPoint("BOOKS_BASEURI");
+		RestAssured.basePath = FileReaderManager.getInstance().getServiceFileReader()
+				.getServiceEndPoint("BOOKS_BASEPATH");
 	}
 
 	@Given("a book exists with an isbn of (.*)")

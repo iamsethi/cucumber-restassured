@@ -4,7 +4,6 @@ import com.amazon.cucumber.TestContext;
 import com.api.managers.FileReaderManager;
 import com.api.steps.UserSteps;
 
-import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import io.restassured.RestAssured;
 
@@ -18,40 +17,21 @@ public class Hooks {
 		userSteps = testContext.getUserSteps();
 	}
 
-	@Before("@Swagger")
-	public static void getPet() {
-		RestAssured.baseURI = "http://petstore.swagger.io";
-		RestAssured.basePath = "/v2";
-	}
-
-	@Before("@ISO")
-	public static void iso() {
-		RestAssured.baseURI = "http://services.groupkt.com";
-		RestAssured.basePath = "/country";
-	}
-
-	@Before("@ISBN")
-	public static void isbn() {
-		RestAssured.baseURI = "https://www.googleapis.com";
-		RestAssured.basePath = "/books/v1/volumes";
-	}
-
-	@Before("@Twitter")
-	public static void init() {
-		RestAssured.baseURI = "https://api.twitter.com";
-		RestAssured.basePath = "/1.1";
-	}
-
 	@Before("@OAuth1")
 	public static void OAuth1() {
-		RestAssured.baseURI = "https://api.twitter.com";
-		RestAssured.basePath = "/1.1/statuses/home_timeline.json";
+		RestAssured.baseURI = FileReaderManager.getInstance().getServiceFileReader()
+				.getServiceEndPoint("OAUTH1_BASEURI");
+		RestAssured.basePath = FileReaderManager.getInstance().getServiceFileReader()
+				.getServiceEndPoint("OAUTH1_BASEPATH");
 	}
 
 	@Before("@OAuth2")
 	public static void OAuth2() {
-		RestAssured.baseURI = "https://api.imgur.com";
-		RestAssured.basePath = "/3/account/me/";
+		RestAssured.baseURI = FileReaderManager.getInstance().getServiceFileReader()
+				.getServiceEndPoint("OAUTH2_BASEURI");
+		RestAssured.basePath = FileReaderManager.getInstance().getServiceFileReader()
+				.getServiceEndPoint("OAUTH2_BASEPATH");
+
 	}
 
 	@Before("@BasicAuth")
@@ -60,11 +40,6 @@ public class Hooks {
 				.getServiceEndPoint("BASIC_AUTH_BASEURI");
 		RestAssured.basePath = FileReaderManager.getInstance().getServiceFileReader()
 				.getServiceEndPoint("BASIC_AUTH_BASEPATH");
-	}
-
-	@After
-	public void after() {
-		RestAssured.reset();
 	}
 
 }

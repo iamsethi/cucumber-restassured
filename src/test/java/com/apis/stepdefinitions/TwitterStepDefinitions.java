@@ -5,12 +5,14 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 import org.junit.Assert;
 
 import com.amazon.cucumber.TestContext;
+import com.api.managers.FileReaderManager;
 import com.api.steps.UserSteps;
 
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.restassured.RestAssured;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -32,6 +34,11 @@ public class TwitterStepDefinitions {
 	public TwitterStepDefinitions(TestContext context) {
 		testContext = context;
 		userSteps = testContext.getUserSteps();
+		RestAssured.baseURI = FileReaderManager.getInstance().getServiceFileReader()
+				.getServiceEndPoint("TWITTER_BASEURI");
+		RestAssured.basePath = FileReaderManager.getInstance().getServiceFileReader()
+				.getServiceEndPoint("TWITTER_BASEPATH");
+
 	}
 
 	@Given("^a user exists with OATH (\\d+)\\.(\\d+) with below details$")
@@ -45,12 +52,12 @@ public class TwitterStepDefinitions {
 	}
 
 	@When("^a user post the tweet$")
-	public void a_user_post_the_tweet(DataTable tweetMessage) {
+	public void a_user_post_the_tweet(String tweetMessage) {
 		// https://api.twitter.com/1.1/statuses/update.json?status=Hi There!!
 		RequestSpecification request = userSteps.constructRequestWithPath(
 				userSteps.constructOAuth1Request(consumerKey, consumerSecret, accessToken, tokenSecret),
 				"/statuses/update.json");
-		request = userSteps.constructRequestWithQueryParam(request, "status", tweetMessage.raw().get(0).toString());
+		request = userSteps.constructRequestWithQueryParam(request, "status", tweetMessage);
 		responseBody = userSteps.postRequest(request);
 		responseBody.then().body(matchesJsonSchemaInClasspath("schema-json/twitter.json"));
 		this.tweetId = responseBody.jsonPath().get("id_str");
@@ -88,6 +95,42 @@ public class TwitterStepDefinitions {
 				"/statuses/destroy/{id}.json");
 		request = userSteps.constructRequestWithParam(request, "id", tweetId);
 		responseBody = userSteps.postRequest(request);
+		responseBody.then().assertThat().statusCode(200).log().all();
+
+	}
+
+	@When("^a user get the tweet$")
+	public void a_user_get_the_tweet() {
+		// https://api.twitter.com/1.1/statuses/show.json?id=990896540611788800
+		RequestSpecification request = userSteps.constructRequestWithPath(
+				userSteps.constructOAuth1Request(consumerKey, consumerSecret, accessToken, tokenSecret),
+				"/statuses/show.json");
+		request = userSteps.constructRequestWithQueryParam(request, "id", tweetId);
+		responseBody = userSteps.getRequest(request);
+		responseBody.then().assertThat().statusCode(200).log().all();
+
+	}
+
+	@When("^a user get the Tweet timeline$")
+	public void a_user_get_the_Tweet_timeline() {
+		// https://api.twitter.com/1.1/statuses/home_timeline.json
+		RequestSpecification request = userSteps.constructRequestWithPath(
+				userSteps.constructOAuth1Request(consumerKey, consumerSecret, accessToken, tokenSecret),
+				"/statuses/home_timeline.json");
+		responseBody = userSteps.getRequest(request);
+		responseBody.then().assertThat().statusCode(200).log().all();
+
+	}
+
+	@When("^a user get the previous tweets in limit$")
+	public void a_user_get_the_previous_tweets_in_limit() {
+		// https://api.twitter.com/1.1/favorites/list.json?count=2&user_id=iam_sethi
+		RequestSpecification request = userSteps.constructRequestWithPath(
+				userSteps.constructOAuth1Request(consumerKey, consumerSecret, accessToken, tokenSecret),
+				"/favorites/list.json");
+		request = userSteps.constructRequestWithQueryParam(request, "count", "100");
+		request = userSteps.constructRequestWithQueryParam(request, "user_id", "iam_sethi");
+		responseBody = userSteps.getRequest(request);
 		responseBody.then().assertThat().statusCode(200).log().all();
 
 	}

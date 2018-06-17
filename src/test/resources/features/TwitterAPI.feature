@@ -8,11 +8,19 @@ Feature: Post a tweet to Twitter
       | accessToken    | 149037788-Kksp0VfC3B157PAxL7901OF1QDkuLEnM2EQANvmF |
       | tokenSecret    | dNrWU3IhO5vBKKMY7JuUkmQ2p2EPgUZ8udFea6a5yu1dY      |
     When a user post the tweet
-      | This is my tweet from Rest Assured |
+      """
+       This is my tweet from Rest Assured 
+      """
+    Then twitter response status code should be "200"
+    When a user get the tweet
     Then twitter response status code should be "200"
     When user like the tweet
     Then twitter response status code should be "200"
     When user unlike the tweet
     Then twitter response status code should be "200"
     When a user delete the tweet
+    Then twitter response status code should be "200"
+    When a user get the Tweet timeline
+    Then twitter response status code should be "200"
+    When a user get the previous tweets in limit
     Then twitter response status code should be "200"

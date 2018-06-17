@@ -14,6 +14,8 @@ import com.api.steps.UserSteps;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
@@ -26,9 +28,16 @@ public class SwaggerStepDefinitions {
 	private Response responseBody;
 
 	public SwaggerStepDefinitions(TestContext context) {
+		RestAssured.baseURI = FileReaderManager.getInstance().getServiceFileReader()
+				.getServiceEndPoint("SWAGGER_BASEURI");
+		RestAssured.basePath = FileReaderManager.getInstance().getServiceFileReader()
+				.getServiceEndPoint("SWAGGER_BASEPATH");
 		testContext = context;
 		userSteps = testContext.getUserSteps();
 	}
+
+	public static RequestSpecBuilder builder;
+	public static RequestSpecification requestSpec;
 
 	@When("^user create a pet$")
 	public void user_create_a_pet() {

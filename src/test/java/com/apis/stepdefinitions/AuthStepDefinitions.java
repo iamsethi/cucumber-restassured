@@ -3,11 +3,13 @@ package com.apis.stepdefinitions;
 import java.util.List;
 
 import com.amazon.cucumber.TestContext;
+import com.api.managers.FileReaderManager;
 import com.api.steps.UserSteps;
 
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
+import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
 
 public class AuthStepDefinitions {
@@ -32,6 +34,10 @@ public class AuthStepDefinitions {
 	public AuthStepDefinitions(TestContext context) {
 		testContext = context;
 		userSteps = testContext.getUserSteps();
+		RestAssured.baseURI = FileReaderManager.getInstance().getServiceFileReader()
+				.getServiceEndPoint("OAUTH2_BASEURI");
+		RestAssured.basePath = FileReaderManager.getInstance().getServiceFileReader()
+				.getServiceEndPoint("OAUTH2_BASEPATH");
 	}
 
 	@Given("^a user exists with Basic Auth with \"([^\"]*)\" and \"([^\"]*)\"$")

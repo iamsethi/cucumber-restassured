@@ -2,11 +2,14 @@ package com.apis.stepdefinitions;
 
 import com.amazon.cucumber.TestContext;
 import static io.restassured.RestAssured.given;
+
+import com.api.managers.FileReaderManager;
 import com.api.steps.UserSteps;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
@@ -20,6 +23,10 @@ public class CountrySearchStepDefinitions {
 	public CountrySearchStepDefinitions(TestContext context) {
 		testContext = context;
 		userSteps = testContext.getUserSteps();
+		RestAssured.baseURI = FileReaderManager.getInstance().getServiceFileReader()
+				.getServiceEndPoint("COUNTRY_BASEURI");
+		RestAssured.basePath = FileReaderManager.getInstance().getServiceFileReader()
+				.getServiceEndPoint("COUNTRY_BASEPATH");
 	}
 
 	@Given("^a country exists with \"([^\"]*)\"$")
