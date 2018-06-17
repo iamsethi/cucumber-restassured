@@ -9,9 +9,9 @@ Feature: Trello Board
     # Then the response status code should be "200"
     When user create a new "TODO" list in Trello
     #Then the response status code should be "200"
-    When user create a new "DONE" list in Trello
-    #Then the response status code should be "200"
     When user create a new "Learn RA" card in Trello
+    #Then the response status code should be "200"
+    When user create a new "DONE" list in Trello
     #Then the response status code should be "200"
     When user move the card from "TODO" list to "DONE" list
     #Then the response status code should be "200"

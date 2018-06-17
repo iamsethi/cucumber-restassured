@@ -81,7 +81,7 @@ public class TrelloStepDefinitions {
 		RequestSpecification request = userSteps.constructRequestWithPath(given(), "/cards");
 		request.contentType(ContentType.JSON);
 		request = userSteps.constructRequestWithQueryParam(request, "idList", listId.toString());
-		request = userSteps.constructRequestWithQueryParam(request, "name", this.boardId.toString());
+		request = userSteps.constructRequestWithQueryParam(request, "name", cardName);
 		request = userSteps.constructRequestWithQueryParam(request, "key", this.trelloKey);
 		request = userSteps.constructRequestWithQueryParam(request, "token", this.trellToken);
 
@@ -95,6 +95,7 @@ public class TrelloStepDefinitions {
 	public void user_move_the_card_from_list_to_list(String arg1, String arg2) {
 		// https://api.trello.com/1/cards/{cardId}?key={{trelloKey}}&token={{trelloToken}}&idList={{doneId}}
 		RequestSpecification request = userSteps.constructRequestWithPath(given(), "/cards/{cardId}");
+		request.contentType(ContentType.JSON);
 		request = userSteps.constructRequestWithParam(request, "cardId", this.cardId.toString());
 		request = userSteps.constructRequestWithQueryParam(request, "key", this.trelloKey);
 		request = userSteps.constructRequestWithQueryParam(request, "token", this.trellToken);
@@ -108,6 +109,15 @@ public class TrelloStepDefinitions {
 
 	@When("^user delete the board$")
 	public void user_delete_the_board() {
+		// https://api.trello.com/1/boards/{boardId}?key={{trelloKey}}&token={{trelloToken}}
+		RequestSpecification request = userSteps.constructRequestWithPath(given(), "/boards/{boardId}");
+		request.contentType(ContentType.JSON);
+		request = userSteps.constructRequestWithParam(request, "boardId", this.boardId.toString());
+		request = userSteps.constructRequestWithQueryParam(request, "key", this.trelloKey);
+		request = userSteps.constructRequestWithQueryParam(request, "token", this.trellToken);
+
+		responseBody = userSteps.deleteRequest(request);
+		responseBody.then().assertThat().statusCode(200).log().all();
 
 	}
 
