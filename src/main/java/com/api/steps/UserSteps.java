@@ -66,8 +66,13 @@ public class UserSteps {
 
 	}
 
+	public Response putRequest(RequestSpecification request) {
+		return request.when().put().then().log().all().contentType(ContentType.JSON).extract().response();
+
+	}
+
 	public Response postRequest(RequestSpecification request) {
-		return request.when().post().then().contentType(ContentType.JSON).extract().response();
+		return request.when().post().then().log().all().contentType(ContentType.JSON).extract().response();
 
 	}
 
