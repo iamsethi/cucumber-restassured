@@ -10,9 +10,7 @@ pipeline {
     stages { 	
         stage('Build Jar') {
             steps {
-                bat "mvn clean"
-		   
-		    
+                sh 'mvn clean'  
 			     
             }
         }
